@@ -1,0 +1,146 @@
+<div class="card">
+    <div class="card-content">
+        <div class="titulo">Almacen</div>
+        <button class="button is-primary" (click)='Modal_Almacen()'>Agregar inventario</button>  
+        <button class="button is-primary" (click)='modal_Conversion()'>Hacer Conversión</button>
+        <hr>
+        <div class="card" *ngFor='let seccion of SECCIONES'>
+            <div class="card-content">
+                <div class="subtitulo">
+                    {{seccion.nombre}}
+                </div>
+                    <hr>
+                    <table class="table is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th>Materia Prima</th>
+                                <th>Cantidad</th>
+                                <th>Editar</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let producto of ALMACEN'>
+                                <ng-container *ngIf='producto.grupo.nombre === seccion.nombre'>
+                                    <td>{{producto.nombre}}</td>
+                                    <td>{{producto.cantidad}}</td>
+                                    <td>
+                                        <button class="button is-danger is-outlined is-small">
+                                            <span>Eliminar</span>
+                                            <span class="icon is-small">
+                                              <i class="fas fa-times"></i>
+                                            </span>
+                                        </button>
+   
+                                        <button class="button is-success is-outlined is-small">
+                                            <span>Editar</span>
+                                            <span class="icon is-small">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </span>
+                                        </button>
+                                    </td>
+                                </ng-container>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" [ngClass]="{'is-active':NUEVO_PRODUCTO}">
+    <div class="modal-background" (click)='Modal_Almacen()'></div>
+    <div class="modal-card">
+        <div class="modal-card-body">
+            <div class="subtitulo">Ingreso de Materia Prima</div>
+            <form
+            autocomplete="off"
+            [formGroup]="InventarioForm"
+            (ngSubmit)="Almacenar()"
+            >
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">
+                            Grupo de Materia Prima
+                        </label>
+                        <div class="select">
+                            <select (change)='Cambio_opciones($event.target.value)' id='selected'>
+                                <option value="{{seccion._id}}" *ngFor='let seccion of SECCIONES'>{{seccion.nombre}}</option>
+                                <option value="otros">otro</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="column" *ngIf='OTRO'>
+                    <div class="field">
+                        <label class="label">Nombre del Nuevo Grupo</label>
+                        <div class="control">
+                            <input type="text" class="input" formControlName="NewControl">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Materia Prima</label>
+                            <div class="control">
+                                <input type="text" class="input" formControlName="producto">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-3">
+                        <div class="field">
+                            <label class="label">Cant. Kg</label>
+                            <div class="control">
+                                <input type="number" class="input" formControlName="cantidad">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="button is-primary">Agregar a Inventario</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal" [ngClass]="{'is-active':CONVERSION}">
+    <div class="modal-background" (click)='modal_Conversion()'></div>
+    <div class="modal-card">
+        <div class="modal-card-body">
+            <div class="subtitulo">Conversión</div>
+            <hr>
+            <div class="field">
+                <div class="label">Peso (tm)</div>
+                <div class="control">
+                    <input type="number" class="input" value='0' (change)='Peso($event)'>
+                </div>
+            </div>
+            <div class="field">
+                <div class="label">Gramaje (g/m²)</div>
+                <div class="control">
+                    <input type="number" class="input" value='300' (change)='Gramaje($event)'>
+                </div>
+            </div>
+            <div class="field">
+                <div class="label">Ancho (cm)</div>
+                <div class="control">
+                    <input type="number" class="input" value='0' (change)='Ancho($event)'>
+                </div>
+            </div>
+            <div class="field">
+                <div class="label">Largo (cm)</div>
+                <div class="control">
+                    <input type="number" class="input" value='0' (change)='Largo($event)'>
+                </div>
+            </div>
+            <hr>
+            <div class="columns">
+                <div class="column">
+                    <b>Cantidad Hojas: </b> {{HOJAS}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

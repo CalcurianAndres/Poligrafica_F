@@ -1,0 +1,124 @@
+<div class="columns mt-5">
+    <div class="column is-3">
+        <div class="card">
+            <div class="card-content">
+                <div class="field">
+                    <label class="label">Cliente:</label>
+                    <div class="control">
+                        <div class="select">
+                            <select id='cliente_Seleccionado' (change)='buscar_producto($event)' value=''>
+                                <option *ngFor='let cliente of CLIENTES' value='{{cliente._id}}'>{{cliente.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button class="button is-primary" (click)='Modal_Cliente()'>Nuevo Cliente</button>
+            </div>
+        </div>
+    </div>
+    <div class="column">
+        <div class="card">
+            <div class="card-content">
+                <div class="titulo">Productos</div>
+                <button class="button is-primary" (click)='Modal_Producto()'>Nuevo Producto</button>
+                <hr>
+                <table class="table is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>Nombre del Producto</th>
+                            <th>Grupo</th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let producto of PRODUCTOS'>
+                            <td>{{producto.producto}}</td>
+                            <td><button class="button is-primary">Borra</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" [ngClass]="{'is-active':NUEVO_CLIENTE}">
+    <div class="modal-background" (click)='Modal_Cliente()'></div>
+    <div class="modal-card">
+        <div class="modal-card-body">
+            <form
+            autocomplete="off"
+            [formGroup]="ClienteForm"
+            (ngSubmit)="addCliente()">
+                <div class="subtitulo">Nuevo Cliente</div>
+                <hr>
+                <div class="field">
+                    <label class="label">Nombre del Cliente</label>
+                    <div class="control">
+                        <input type="text" class="input" formControlName='nombre'>
+                    </div>
+                </div>
+                <button class="button is-primary">Nuevo Cliente</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="modal" [ngClass]="{'is-active':NUEVO_PRODUCTO}">
+    <div class="modal-background" (click)='Modal_Producto()'></div>
+    <div class="modal-card">
+        <div class="modal-card-body tabla">
+            <div class="subtitulo">
+                Nuevo Producto
+            </div>
+            <hr>
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Nombre Producto</label>
+                        <div class="control">
+                            <input type="text" class="input" id='nombre_nuevo_producto'>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Categoria</label>
+                        <div class="select">
+                            <select id='grupo_producto'>
+                                <option *ngFor='let grupo of GRUPOS' value="{{grupo._id}}">{{grupo.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <hr>
+            <div class="card" *ngFor='let grupo of GRUPOS_MATERIA'>
+                <div class="card-content">
+                    <b>{{grupo.nombre}}</b>
+                    <table class="table is-striped is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th>Selecciona</th>
+                                <th>Materia Prima</th>
+                                <th><abbr title="Cantidad necesaria por cada 1000">Cantidad</abbr></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor='let material of MATERIALES'>
+                                <ng-container *ngIf='material.grupo.nombre === grupo.nombre'>
+                                    <td><input type="checkbox" name='necesario' (click)='enable(material.nombre)'></td>
+                                    <td>{{material.nombre}}</td>
+                                    <td><input type="number" class="input" id='{{material.nombre}}' (change)='just_a_sec($event)' disabled></td>
+                                </ng-container>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr>
+            <button class="button is-primary" (click)='finalizar()'>Registrar Producto</button>
+        </div>
+    </div>
+</div>

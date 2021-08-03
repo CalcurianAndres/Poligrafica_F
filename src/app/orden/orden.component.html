@@ -1,0 +1,44 @@
+<app-navbar></app-navbar>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-content">
+            <table class="table is-fullwidth is-bordered ">
+                <tr>
+                    <td>
+                        <b>CLIENTE:</b> {{PRODUCTO.cliente.nombre}}
+                    </td>
+                    <td>
+                        <b>Orden De Compra:</b> {{PRODUCTO.orden}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan='2'>
+                            <b>PRODUCTO:</b> {{PRODUCTO.producto.producto}}
+                        </td>
+                    </tr>
+                    <tr class="has-text-centered" >
+                        <th class="has-text-centered" colspan='2'>ENTREGAS</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Cantidad:</b> {{PRODUCTO.cantidad}} <br>
+                        </td>
+                        <td>
+                            <b>Fecha de Creacion: </b> {{PRODUCTO.fecha | date:'dd-MM-yyyy'}}
+                        </td>
+                    </tr>
+                    <tr class="has-text-centered" >
+                        <th class="has-text-centered" colspan='2'>MATERIALES</th>
+                    </tr>
+                    <tr *ngFor='let material of PRODUCTO.producto.materiales'>
+                        <td colspan='2'>
+                            {{material.material}}
+                        </td>
+                    </tr>
+                </table>
+                <div class="column">
+                </div>
+            <hr>
+        </div>
+    </div>
+</div>
