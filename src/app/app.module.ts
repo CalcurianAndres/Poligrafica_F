@@ -15,6 +15,8 @@ import { ProductoYMaquinariaModule } from './producto-ymaquinaria/producto-ymaqu
 import { AlmacenComponent } from './almacen/almacen.component';
 import { AlmacenModule } from './almacen/almacen.module';
 import { OrdenComponent } from './orden/orden.component';
+import { OrdenesModule } from './ordenes/ordenes.module';
+import { OrdenesComponent } from './ordenes/ordenes.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { OrdenComponent } from './orden/orden.component';
     NuevoPedidoComponent,
     ProductoYMaquinariaComponent,
     AlmacenComponent,
-    OrdenComponent
+    OrdenComponent,
+    OrdenesComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,8 @@ import { OrdenComponent } from './orden/orden.component';
     IndexModule,
     NuevoPedidoModule,
     ProductoYMaquinariaModule,
-    AlmacenModule
+    AlmacenModule,
+    OrdenesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

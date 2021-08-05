@@ -118,5 +118,9 @@ export class RestApiService {
     const url = `${this.api_url}/orden/${id}`
     return this.http.get(url);
   }
+  getOrden(){
+    const url = `${this.api_url}/orden`
+    return this.http.get(url);
+  }
   
 }

@@ -92,6 +92,45 @@
                     </div>
                 </div>
             </div>
+            <hr>
+
+            <div class="columns">
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Ejemplares Montados:</label>
+                        <div class="control">
+                            <input type="number" class="input" min='1' value="1" (change)='Ejemplar($event)'>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">POST-IMPRESION</label>
+                        <div class="select">
+                            <select value='Recto' id='p_i' (change)='post_impresion($event)'>
+                                <option value="">Opciones</option>
+                                <option value="Recto">Corte Recto</option>
+                                <option value="Doblado">Doblado</option>
+                                <option value="Signado">Signado</option>
+                                <option value="Grapado">Grapado</option>
+                                <option value="Alzado">Alzado</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Troquel</label>
+                        <div class="select">
+                            <select value='Refle' id='troquel' (change)='troquel($event)'>
+                                <option value="">Opciones</option>
+                                <option value="Refle">De Refle</option>
+                                <option value="Molde">De Molde</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
             
             <hr>
             <div class="card" *ngFor='let grupo of GRUPOS_MATERIA'>

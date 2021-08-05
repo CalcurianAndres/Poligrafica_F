@@ -16,6 +16,10 @@ export class ProductosComponent implements OnInit {
   public NUEVO_PRODUCTO:boolean = false;
   public GRUPOS;
 
+  public EJEMPLARES = 1;
+  public POST;
+  public TROQUEL
+
   public GRUPOS_MATERIA;
 
   public PRODUCTOS;
@@ -34,6 +38,18 @@ export class ProductosComponent implements OnInit {
     this.obtenerGrupos();
     let cliente_id = (<HTMLInputElement>document.getElementById('cliente_Seleccionado')).value;
     this.buscar_producto(cliente_id);
+  }
+
+  post_impresion(e){
+    this.POST = e.target.value;
+  }
+
+  troquel(e){
+    this.TROQUEL = e.target.value;
+  }
+
+  Ejemplar(e){
+    this.EJEMPLARES = e.target.value
   }
 
   public Modal_Cliente(){
@@ -143,7 +159,10 @@ just_a_sec(e){
       cliente: (<HTMLInputElement>document.getElementById('cliente_Seleccionado')).value,
       producto:(<HTMLInputElement>document.getElementById('nombre_nuevo_producto')).value,
       grupo:(<HTMLInputElement>document.getElementById('grupo_producto')).value,
-      materiales: this.MATERIALES_NECESARIOS
+      materiales: this.MATERIALES_NECESARIOS,
+      post:this.POST,
+      troquel:this.TROQUEL,
+      ejemplares:this.EJEMPLARES
     }
 
     

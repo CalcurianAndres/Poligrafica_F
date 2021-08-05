@@ -1,0 +1,30 @@
+<div class="container mt-5">
+    <div class="card mt-5">
+        <div class="card-content">
+            <div class="titulo">
+                Ordenes de Producción
+            </div>
+            <hr>
+            <table class="table is-fullwidth is-hoverable">
+                <thead>
+                    <tr>
+                        <th>Orden de Produccion</th>
+                        <th>Producto</th>
+                        <th>Cliente</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let orden of ORDENES' (click)='alert()'>
+                        <td>{{$}}</td>
+                        <td>{{orden.producto.producto}}</td>
+                        <td>{{orden.cliente.nombre}}</td>
+                        <td>{{orden.fecha | date:'dd/MM/yyyy'}} </td>
+                        <td>Estado</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

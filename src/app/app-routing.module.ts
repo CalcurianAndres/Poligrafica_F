@@ -25,6 +25,10 @@ const routes: Routes = [
   {
     path: 'almacen',
     loadChildren: ()=> import('./almacen/almacen.module').then(m=>m.AlmacenModule)
+  },
+  {
+    path: 'ordenes',
+    loadChildren: ()=> import('./ordenes/ordenes.module').then(m=>m.OrdenesModule)
   }
 
 ]
