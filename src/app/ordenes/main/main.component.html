@@ -16,7 +16,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor='let orden of ORDENES' (click)='alert()'>
+                    <tr *ngFor='let orden of ORDENES' (click)='alert(orden._id)'>
                         <td>{{$}}</td>
                         <td>{{orden.producto.producto}}</td>
                         <td>{{orden.cliente.nombre}}</td>

@@ -2,7 +2,7 @@
 <div class="container mt-5">
     <div class="card">
         <div class="card-content">
-            <table class="table is-fullwidth is-bordered ">
+            <table class="table is-fullwidth">
                 <tr>
                     <td>
                         <b>CLIENTE:</b> {{PRODUCTO.cliente.nombre}}
@@ -16,7 +16,7 @@
                             <b>PRODUCTO:</b> {{PRODUCTO.producto.producto}}
                         </td>
                     </tr>
-                    <tr class="has-text-centered" >
+                    <tr class="has-text-centered is-selected" >
                         <th class="has-text-centered" colspan='2'>ENTREGAS</th>
                     </tr>
                     <tr>
@@ -27,13 +27,40 @@
                             <b>Fecha de Creacion: </b> {{PRODUCTO.fecha | date:'dd-MM-yyyy'}}
                         </td>
                     </tr>
-                    <tr class="has-text-centered" >
-                        <th class="has-text-centered" colspan='2'>MATERIALES</th>
+                    <tr class="has-text-centered is-selected" >
+                        <th class="has-text-centered" colspan='2'>MONTAJE Y DESARROLLO</th>
                     </tr>
-                    <tr *ngFor='let material of PRODUCTO.producto.materiales'>
-                        <td colspan='2'>
-                            {{material.material}}
+                    <tr class="has-text-centered">
+                        <th class="has-text-centered is-selected">MATERIALES</th>
+                        <th class="has-text-centered is-selected">POST - IMPRESION</th>
+                    </tr>
+                    <tr>
+                        <td rowspan="3">
+                            <ng-container *ngFor='let material of PRODUCTO.producto.materiales'>
+                                {{material.material}} <br>
+                            </ng-container>
                         </td>
+                        <td>
+                            <b>Ejemplares Montados:</b>
+                            {{PRODUCTO.producto.ejemplares}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Corte:</b>
+                            {{PRODUCTO.producto.post}}
+                        </td>
+                    </tr>
+                    <tr>
+                        
+                        <td>
+                            <b>Corte:</b>
+                            {{PRODUCTO.producto.troquel}}
+                        </td>
+                        
+                    </tr>
+                    <tr class="has-text-centered">
+                        <th class="is-selected" colspan='2'>PAGINAS</th>
                     </tr>
                 </table>
                 <div class="column">

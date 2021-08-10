@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { RestApiService } from 'src/app/services/rest-api.service';
 
 @Component({
@@ -10,7 +11,8 @@ export class MainComponent implements OnInit {
 
   public ORDENES;
 
-  constructor(private api:RestApiService) { }
+  constructor(private api:RestApiService,
+              private router:Router) { }
 
   ngOnInit(): void {
     this.getOrdenes();
@@ -20,12 +22,11 @@ export class MainComponent implements OnInit {
     this.api.getOrden()
       .subscribe((resp:any)=>{
         this.ORDENES = resp;
-        console.log(this.ORDENES)
       })
   }
 
-  alert(){
-    console.log('here I am')
+  alert(id){
+    this.router.navigateByUrl(`orden-produccion/${id}`)
   }
 
 }
