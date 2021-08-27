@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { MainComponent } from './index/main/main.component';
 import { OrdenComponent } from './orden/orden.component';
+import { PlanificacionComponent } from './planificacion/planificacion.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,10 @@ const routes: Routes = [
   {
     path: 'ordenes',
     loadChildren: ()=> import('./ordenes/ordenes.module').then(m=>m.OrdenesModule)
+  },
+  {
+    path: 'planificacion',
+    component:PlanificacionComponent
   }
 
 ]

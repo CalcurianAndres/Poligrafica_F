@@ -25,6 +25,7 @@ export class MainComponent implements OnInit {
   public CLIENTES;
   public PRODUCTOS = [];
   public PRODUCTO = {
+    ejemplares:null,
     materiales: [],
     _id:null,
     grupo:null
@@ -70,6 +71,7 @@ export class MainComponent implements OnInit {
     this.api.getById(e.target.value)
       .subscribe((resp:any)=>{
         this.PRODUCTOS = resp.productos;
+        console.log(this.PRODUCTOS)
       })
   }
 
@@ -84,6 +86,7 @@ export class MainComponent implements OnInit {
     this.api.getOneById(e.target.value)
       .subscribe((resp:any)=>{
         this.PRODUCTO = resp.producto;
+        this.Ejemplares_montados = this.PRODUCTO.ejemplares;
         this.MAQUINAS = resp.maquinas;
         //   this.modal_nueva_orden()
         let x = this.PRODUCTO.materiales.length;
@@ -217,10 +220,12 @@ export class MainComponent implements OnInit {
           
           let fase = this.PRODUCTO.grupo.tipos[x]
           let maquina = (<HTMLInputElement>document.getElementById(`${fase}-maquina`)).value
+          let fechaI = (<HTMLInputElement>document.getElementById(`${fase}`)).value
           let fecha = (<HTMLInputElement>document.getElementById(`${fase}-C`)).value
 
           let Data = {
-            maquina, 
+            maquina,
+            fechaI, 
             fecha,
             orden:resp
           }

@@ -1,0 +1,101 @@
+<div class="container">
+    <div class="card">
+        <div class="card-content">
+            <div class="titulo">
+                Gestiones
+                <br>
+                <button class="button is-primary" (click)='modal_nueva_gestion()'>Nueva Gestión</button>
+            </div>
+            <hr>
+            <div class="subtitulo">
+                Ordenes para el dia de Hoy: <br>
+            </div>
+                <table class="table is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>Orden</th>
+                            <th>Producto</th>
+                            <th>Maquina</th>
+                            <th>Cant. Hojas</th>
+                            <th>Cant. Productos</th>
+                            <th>Fecha Estimada</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let trabajo of TRABAJOS'>
+                            <td>{{trabajo.orden.sort}}</td>
+                            <td>{{trabajo.orden.producto.producto}}</td>
+                            <td>{{trabajo.maquina.nombre}}</td>
+                            <td>{{trabajo.orden.paginas}}</td>
+                            <td>{{trabajo.orden.cantidad}}</td>
+                            <td>{{trabajo.fecha}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            <hr>
+            <div class="subtitulo">
+                Gestiones Realizadas: <br>
+            </div>
+            <div *ngFor='let trabajo of TRABAJOS'>
+                ORDEN: <b>{{trabajo.orden.sort}}</b> - {{trabajo.orden.producto.producto}}
+                <table class="table is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Maquina</th>
+                            <th>Cant. de Hojas</th>
+                            <th>Cant. de Productos</th>
+                            <th>Restante</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ng-container *ngFor='let gestion of GESTIONES'>
+                            <tr *ngIf='gestion.orden === trabajo._id'>
+                                <td>{{gestion.fecha}}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </ng-container>
+                    </tbody>
+                </table>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal" [ngClass]="{'is-active':NUEVA_GESTION}">
+    <div class="modal-background" (click)='modal_nueva_gestion()'></div>
+    <div class="modal-card">
+        <div class="modal-card-body">
+            <div class="subtitulo">
+                Gestion
+            </div>
+            <hr>
+            <div class="columns">
+                <div class="column">
+                    <b>Orden:</b><br>
+                    <div class="select">
+                        <select id='orden_selected'>
+                            <ng-container *ngFor='let trabajo of TRABAJOS'>
+                                <option value="{{trabajo._id}}">{{trabajo.orden.sort}}</option>
+                            </ng-container>
+                        </select>
+                    </div>
+                </div>
+                <div class="column">
+                    <b>Gestion Realizada en Hojas:</b><br>
+                    <input type="number" class="input" id='hojas_input' (change)='calcular_Productos($event)'>
+                    <br>
+                    <b>Gestion Realizada en Productos</b>
+                    <input type="number" class="input" id='productos_input' (change)='calcular_Hojas($event)'>
+                </div>
+            </div>
+            <hr>
+            <button class="button is-primary" (click)='finalizar()'>Finalizar</button>
+        </div>
+    </div>
+</div>

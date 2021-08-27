@@ -17,11 +17,11 @@
                 </thead>
                 <tbody>
                     <tr *ngFor='let orden of ORDENES' (click)='alert(orden._id)'>
-                        <td>{{$}}</td>
+                        <td>{{orden.sort}}</td>
                         <td>{{orden.producto.producto}}</td>
                         <td>{{orden.cliente.nombre}}</td>
                         <td>{{orden.fecha | date:'dd/MM/yyyy'}} </td>
-                        <td>Estado</td>
+                        <td>{{getEstados(orden._id)}}</td>
                     </tr>
                 </tbody>
             </table>

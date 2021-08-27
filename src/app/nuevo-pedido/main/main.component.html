@@ -111,7 +111,7 @@
                     <div class="field">
                         <label class="label">Ejemplares Montados</label>
                         <div class="control">
-                            <input type="number" class="input" value='1' (change)='Ejemplares($event)'>
+                            <input type="number" class="input" [value]='PRODUCTO.ejemplares' (change)='Ejemplares($event)'>
                         </div>
                     </div>
                 </div>

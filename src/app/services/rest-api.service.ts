@@ -122,5 +122,30 @@ export class RestApiService {
     const url = `${this.api_url}/orden`
     return this.http.get(url);
   }
+
+  getTrabajos(){
+    const url = `${this.api_url}/trabajos`
+    return this.http.get(url);
+  }
+
+  getEstado(id:any){
+    const url = `${this.api_url}/orden/etapa/${id}`
+    return this.http.get(url);
+  }
+
+  getInfToday(fecha:any){
+    const url = `${this.api_url}/gestion`
+    return this.http.post(url,fecha)
+  }
+
+  postGestion(data){
+    const url = `${this.api_url}/gestiones`
+    return this.http.post(url,data)
+  }
+
+  getGestiones(){
+    const url = `${this.api_url}/gestiones`
+    return this.http.get(url);
+  }
   
 }
