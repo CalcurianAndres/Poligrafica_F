@@ -49,18 +49,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <ng-container *ngFor='let gestion of GESTIONES'>
+                        <ng-container *ngFor='let gestion of GESTIONES;let i = index'>
                             <tr *ngIf='gestion.orden === trabajo._id'>
                                 <td>{{gestion.fecha}}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{gestion.maquina.nombre}}</td>
+                                <td>{{gestion.hojas}}</td>
+                                <td>{{gestion.productos}}</td>
+                                <td>{{gestion.Rhojas}} (Hojas) / {{gestion.Rproductos}} (Productos)</td>
                             </tr>
                         </ng-container>
                     </tbody>
                 </table>
                 <hr>
+                <ng-container *ngFor='let gestion of GESTIONES;let i = index'>
+                    <ng-container *ngIf='gestion.orden === trabajo._id'>
+                        <button class="button is-success" *ngIf="gestion.Rhojas <= 0">Adelantar Entrega</button>
+                    </ng-container>
+                </ng-container>
+                <button class="button is-danger">Retrasar entrega</button>
+                <hr>
+
             </div>
         </div>
     </div>

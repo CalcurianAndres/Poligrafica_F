@@ -1,5 +1,30 @@
 <app-navbar></app-navbar>
-<div class="container">
+<div>
+    <div class="header-calendar">
+
+    </div>
+    <ol>
+        <li *ngFor='let day of week' class="day-name">{{day | slice:0:3}}</li>
+        <li [style.gridColumnStart]="first ? day?.indexWeek : 'auto'"
+        *ngFor="let day of monthSelect;let first = first">
+        <span>{{day?.value}}</span>
+        <div *ngFor='let funcion of FUNCIONES'>
+            <div class='plan'>
+                <div class="op">
+                    2021001
+                </div>
+                <div class="op">
+                    2021001
+                </div>
+            </div>
+        </div>
+    </li>
+    </ol>
+</div>
+
+
+
+<!-- <div class="container">
     <div class="card">
         <div class="card-content">
             <table class="table is-fullwidth is-bordered">
@@ -519,7 +544,7 @@
             </table>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- <div class="card" *ngIf='cargado'>
     <div class="card-content">
