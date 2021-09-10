@@ -190,7 +190,6 @@ export class GestionComponent implements OnInit {
             if(hoy >= nuevo[i].fechaI){
               if(hoy <= nuevo[i].fecha){
                 this.TRABAJOS.push(nuevo[i])
-                console.log(this.TRABAJOS)
               }
             }
     
