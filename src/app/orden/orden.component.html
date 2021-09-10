@@ -2,6 +2,12 @@
 <div class="container mt-5">
     <div class="card">
         <div class="card-content">
+            <div class="orden">Orden de Producción</div>
+            <div class="op">
+                <b>
+                    {{PRODUCTO.sort}}
+                </b>
+            </div>
             <table class="table is-fullwidth">
                 <tr>
                     <td>
@@ -32,10 +38,10 @@
                     </tr>
                     <tr class="has-text-centered">
                         <th class="has-text-centered is-selected">MATERIALES</th>
-                        <th class="has-text-centered is-selected">POST - IMPRESION</th>
+                        <th class="has-text-centered is-selected">HOJAS</th>
                     </tr>
                     <tr>
-                        <td rowspan="3">
+                        <td rowspan="2">
                             <ng-container *ngFor='let material of PRODUCTO.producto.materiales'>
                                 {{material.material}} <br>
                             </ng-container>
@@ -47,20 +53,26 @@
                     </tr>
                     <tr>
                         <td>
+                            <b>Hojas:</b>
+                            {{PRODUCTO.paginas}}
+                        </td>
+                    </tr>
+                    <tr class="has-text-centered">
+                        <th class="is-selected" colspan='2'>POST - IMPRESION</th>
+                    </tr>
+                    <tr>
+                        <td colspan='2'>
                             <b>Corte:</b>
                             {{PRODUCTO.producto.post}}
                         </td>
                     </tr>
                     <tr>
                         
-                        <td>
+                        <td colspan='2'>
                             <b>Corte:</b>
                             {{PRODUCTO.producto.troquel}}
                         </td>
                         
-                    </tr>
-                    <tr class="has-text-centered">
-                        <th class="is-selected" colspan='2'>PAGINAS</th>
                     </tr>
                 </table>
                 <div class="column">

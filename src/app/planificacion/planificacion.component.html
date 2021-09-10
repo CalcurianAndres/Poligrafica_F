@@ -1,5 +1,45 @@
 <app-navbar></app-navbar>
-<div class="container">
+<div class='mt-5'>
+    <div class="header-calendar">
+        <div>
+            <button class="button is-primary" (click)='changeMonth(-1)'>Anterior</button>
+        </div>
+        <h1>{{dateSelect | date: 'MMMM, yyyy'}}</h1>
+        <div>
+            <button class="button is-primary" (click)='changeMonth(1)'>Siguiente</button>
+        </div>
+    </div>
+    <ol>
+        <li *ngFor='let day of week' class="day-name">{{day | slice:0:3}}</li>
+        <li [style.gridColumnStart]="first ? day?.indexWeek : 'auto'"
+        *ngFor="let day of monthSelect;let first = first">
+        <span>{{day?.value}}</span>
+        <div *ngFor='let funcion of FUNCIONES'>
+            <div class='plan'>
+                <b class="titulo">{{funcion}}</b>
+                <!-- * -->
+                <ng-container *ngFor="let id of getFechas(day?.value, funcion)">
+                    <div class="op">
+                        <span class="tooltip">
+                            <b>Producto: </b>{{id.orden.producto.producto}} <br>
+                           <b>Numero de Orden: </b>{{id.orden.sort}} <br>
+                           <b>Cantidad: </b>{{id.orden.cantidad}} <br>
+                           <b>Maquina: </b>{{id.maquina.nombre}}
+                       </span>
+                        {{id.orden.sort}}
+                        <br> 
+                    </div>
+                </ng-container>
+                <!-- * -->
+            </div>
+        </div>
+    </li>
+    </ol>
+</div>
+
+
+
+<!-- <div class="container">
     <div class="card">
         <div class="card-content">
             <table class="table is-fullwidth is-bordered">
@@ -114,7 +154,6 @@
             </table>
         </div>
     </div>
-
     <div class="card">
         <div class="card-content">
             <table class="table is-fullwidth is-bordered">
@@ -229,8 +268,6 @@
             </table>
         </div>
     </div>
-
-
     <div class="card">
         <div class="card-content">
             <table class="table is-fullwidth is-bordered">
@@ -345,7 +382,6 @@
             </table>
         </div>
     </div>
-
     <div class="card">
         <div class="card-content">
             <table class="table is-fullwidth is-bordered">
@@ -460,7 +496,6 @@
             </table>
         </div>
     </div>
-
     <div class="card">
         <div class="card-content">
             <table class="table is-fullwidth is-bordered">
@@ -519,7 +554,7 @@
             </table>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- <div class="card" *ngIf='cargado'>
     <div class="card-content">

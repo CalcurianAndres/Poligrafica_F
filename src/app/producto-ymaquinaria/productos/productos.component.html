@@ -71,7 +71,10 @@
             <div class="subtitulo">
                 Nuevo Producto
             </div>
-            <hr>
+            <div class="separador">
+                Información del producto
+            </div>
+            <br>
             <div class="columns">
                 <div class="column">
                     <div class="field">
@@ -92,7 +95,10 @@
                     </div>
                 </div>
             </div>
-            <hr>
+            <div class="separador">
+                Especificaciones del sustrato
+            </div>
+            <br>
 
             <div class="columns">
                 <div class="column">
@@ -105,34 +111,41 @@
                 </div>
                 <div class="column">
                     <div class="field">
-                        <label class="label">POST-IMPRESION</label>
-                        <div class="select">
-                            <select value='Recto' id='p_i' (change)='post_impresion($event)'>
-                                <option value="">Opciones</option>
-                                <option value="Recto">Corte Recto</option>
-                                <option value="Doblado">Doblado</option>
-                                <option value="Signado">Signado</option>
-                                <option value="Grapado">Grapado</option>
-                                <option value="Alzado">Alzado</option>
-                            </select>
+                        <label class="label">Dimensiones de la hoja</label>
+                        <div class="control">
+                            <input type="text" class="input">
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="separador">
+                Post Impresión
+            </div>
+            <br>
+            <div class="columns">
                 <div class="column">
                     <div class="field">
-                        <label class="label">Troquel</label>
-                        <div class="select">
-                            <select value='Refle' id='troquel' (change)='troquel($event)'>
-                                <option value="">Opciones</option>
-                                <option value="Refle">De Refle</option>
+                        <label class="label">POST-IMPRESION</label>
+                        <div class="select is-multiple">
+                            <select  multiple value='Recto' id='p_i' (change)='post_impresion($event)'>
+                                <option value="Recto">Corte Recto</option>
+                                <option value="Doblado">Doblado</option>
+                                <option value="Signado">Signado</option>
+                                <option value="Refle">De Fleje</option>
                                 <option value="Molde">De Molde</option>
                             </select>
                         </div>
                     </div>
                 </div>
+                <div class="column">
+                </div>
             </div>
             
-            <hr>
+            <div class="separador">
+                Materia Prima
+            </div>
+            <br>
             <div class="card" *ngFor='let grupo of GRUPOS_MATERIA'>
                 <div class="card-content">
                     <b>{{grupo.nombre}}</b>

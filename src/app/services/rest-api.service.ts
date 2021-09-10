@@ -147,5 +147,14 @@ export class RestApiService {
     const url = `${this.api_url}/gestiones`
     return this.http.get(url);
   }
+
+  postRestrasar(data){
+    const url = `${this.api_url}/trabajos/retrasar`
+    return this.http.post(url,data)
+  }
+  postAcelerar(data){
+    const url = `${this.api_url}/trabajos/acelerar`
+    return this.http.post(url,data)
+  }
   
 }

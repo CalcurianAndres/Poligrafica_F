@@ -18,6 +18,7 @@ import { OrdenComponent } from './orden/orden.component';
 import { OrdenesModule } from './ordenes/ordenes.module';
 import { OrdenesComponent } from './ordenes/ordenes.component';
 import { PlanificacionComponent } from './planificacion/planificacion.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { PlanificacionComponent } from './planificacion/planificacion.component'
     AlmacenComponent,
     OrdenComponent,
     OrdenesComponent,
-    PlanificacionComponent
+    PlanificacionComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

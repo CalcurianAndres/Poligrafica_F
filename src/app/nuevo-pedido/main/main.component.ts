@@ -87,6 +87,7 @@ export class MainComponent implements OnInit {
       .subscribe((resp:any)=>{
         this.PRODUCTO = resp.producto;
         this.Ejemplares_montados = this.PRODUCTO.ejemplares;
+        this.Ejemplares(this.Ejemplares_montados)
         this.MAQUINAS = resp.maquinas;
         //   this.modal_nueva_orden()
         let x = this.PRODUCTO.materiales.length;
@@ -126,7 +127,7 @@ export class MainComponent implements OnInit {
   }
 
   Ejemplares(e){
-    this.Ejemplares_montados = e.target.value
+    this.Ejemplares_montados = e
     this.paginas = this.Cantidad_ejemplares / this.Ejemplares_montados 
     this.paginas = this.paginas + this.demasia
     this.paginas = Math.trunc(this.paginas)
@@ -134,7 +135,7 @@ export class MainComponent implements OnInit {
   Demasia(e){
 
     this.paginas = this.Cantidad_ejemplares / this.Ejemplares_montados
-    this.demasia = e.target.value * this.paginas / 100;
+    this.demasia = e * this.paginas / 100;
     this.paginas = this.paginas + this.demasia
     this.paginas = Math.trunc(this.paginas)
 

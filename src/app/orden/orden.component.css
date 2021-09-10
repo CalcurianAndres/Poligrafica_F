@@ -5,3 +5,17 @@
 .mt-5{
     margin-top:5px
 }
+
+.op{
+    display: block;
+    padding: 15px;
+    font-size: 20px;
+    border:solid 1px black;
+    width: 160px;
+    text-align: center;
+}
+.orden{
+    border: solid 1px black;
+    width: 160px;
+    text-align: center;
+}

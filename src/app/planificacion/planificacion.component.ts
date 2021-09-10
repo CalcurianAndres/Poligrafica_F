@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RestApiService } from '../services/rest-api.service';
 
+import * as moment from 'moment'
+
 
 @Component({
   selector: 'app-planificacion',
@@ -20,7 +22,66 @@ export class PlanificacionComponent implements OnInit {
     
     this.ObtenerMaquinas()
     this.obtenerTrabajos()
+    this.getDaysFromDate(9,2021)
   }
+
+  // ***********************************************************
+  getDaysFromDate(month, year) {
+
+    moment.locale('es')
+    const startDate = moment(`${year}/${month}/01`).locale('es')
+    const endDate = startDate.clone().endOf('month')
+    this.dateSelect = startDate;
+
+    const diffDays = endDate.diff(startDate, 'days', true)
+    const numberDays = Math.round(diffDays);
+
+    const arrayDays = Object.keys([...Array(numberDays)]).map((a: any) => {
+      a = parseInt(a) + 1;
+      const dayObject = moment(`${year}-${month}-${a}`);
+      return {
+        name: dayObject.format("dddd"),
+        value: a,
+        indexWeek: dayObject.isoWeekday()
+      };
+    });
+
+    this.monthSelect = arrayDays;
+  }
+
+  changeMonth(flag) {
+    if (flag < 0) {
+      const prevDate = this.dateSelect.clone().subtract(1, "month");
+      this.getDaysFromDate(prevDate.format("MM"), prevDate.format("YYYY"));
+    } else {
+      const nextDate = this.dateSelect.clone().add(1, "month");
+      this.getDaysFromDate(nextDate.format("MM"), nextDate.format("YYYY"));
+    }
+  }
+
+  clickDay(day) {
+    const monthYear = this.dateSelect.format('YYYY-MM')
+    const parse = `${monthYear}-${day.value}`
+    const objectDate = moment(parse)
+    this.dateValue = objectDate;
+
+
+  }
+  // ***********************************************************
+
+  week:any = [
+    "Lunes",
+    "Martes",
+    "Miercoles",
+    "Jueves",
+    "Viernes",
+    "Sabado",
+    "Domingo"
+  ]
+
+  monthSelect: any[];
+  dateSelect: any;
+  dateValue: any;
 
   ObtenerMaquinas(){
     this.api.GetMaquinas()
@@ -43,6 +104,14 @@ export class PlanificacionComponent implements OnInit {
   
   getFechas(fecha:any, funcion:any){
 
+    // 2021-08-01
+
+    if(fecha<10){
+      fecha = `0${fecha}`
+    }
+
+    fecha = `2021-09-${fecha}`
+
     let betas = [];
 
     let nuevo = this.TRABAJOS.filter(x => x.maquina.tipo === funcion);
@@ -55,6 +124,7 @@ export class PlanificacionComponent implements OnInit {
         if(fecha >= nuevo[i].fechaI){
           if(fecha <= nuevo[i].fecha){
             final.push(nuevo[i])
+            console.log(final)
           }
         }
 

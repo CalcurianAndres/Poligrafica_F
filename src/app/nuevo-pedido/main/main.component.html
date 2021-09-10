@@ -111,7 +111,7 @@
                     <div class="field">
                         <label class="label">Ejemplares Montados</label>
                         <div class="control">
-                            <input type="number" class="input" [value]='PRODUCTO.ejemplares' (change)='Ejemplares($event)'>
+                            <input type="number" class="input" [value]='PRODUCTO.ejemplares' (change)='Ejemplares($event.target.value)'>
                         </div>
                     </div>
                 </div>
@@ -119,7 +119,7 @@
                     <div class="field">
                         <label class="label">Demasia (%)</label>
                         <div class="control">
-                            <input type="number" class="input" value='0' (change)='Demasia($event)'>
+                            <input type="number" class="input" value='0' (change)='Demasia($event.target.value)'>
                         </div>
                     </div>
                 </div>

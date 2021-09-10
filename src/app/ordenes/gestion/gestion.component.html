@@ -6,6 +6,12 @@
                 <br>
                 <button class="button is-primary" (click)='modal_nueva_gestion()'>Nueva Gestión</button>
             </div>
+            <div class="select">
+                <select (change)='fase($event)'>
+                    <option>Seleccionar fase</option>
+                    <option value="{{funcion}}" *ngFor='let funcion of FUNCIONES'>{{funcion}}</option>
+                </select>
+            </div>
             <hr>
             <div class="subtitulo">
                 Ordenes para el dia de Hoy: <br>
@@ -49,18 +55,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <ng-container *ngFor='let gestion of GESTIONES'>
+                        <ng-container *ngFor='let gestion of GESTIONES;let i = index'>
                             <tr *ngIf='gestion.orden === trabajo._id'>
                                 <td>{{gestion.fecha}}</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{{gestion.maquina.nombre}}</td>
+                                <td>{{gestion.hojas}}</td>
+                                <td>{{gestion.productos}}</td>
+                                <td>{{gestion.Rhojas}} (Hojas) / {{gestion.Rproductos}} (Productos)</td>
                             </tr>
                         </ng-container>
                     </tbody>
                 </table>
                 <hr>
+                <ng-container *ngFor='let gestion of GESTIONES;let i = index'>
+                    <ng-container *ngIf='gestion.orden === trabajo._id'>
+                        <button class="button is-success" (click)='acelerar(trabajo._id, trabajo.fecha, trabajo.orden._id)' *ngIf="gestion.Rhojas <= 0">Adelantar Entrega</button>
+                    </ng-container>
+                </ng-container>
+                <button class="button is-danger" (click)='retrasar(trabajo._id, trabajo.fecha, trabajo.orden._id,trabajo.fechaI)'>Retrasar entrega</button>
+                <hr>
+
             </div>
         </div>
     </div>

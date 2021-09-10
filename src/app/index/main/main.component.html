@@ -1,7 +1,7 @@
 <section class="hero is-medium is-primary">
     <img src="../assets/hero.png" width="650px">
     <div class="titulo">
-        Sistema de producción
+        Sistema de Producción
     </div>
 </section>
 <div class="divider">
@@ -23,7 +23,7 @@
                             Nuevo pedido
                         </p>
                         <p class="subtitle">
-                            Descripcion que ahora mismo no recuerdo muy bien pero que debe ser mas o menos larga
+                            Genera una nueva Orden de Producción y realiza una planificacion de sus fases de producción
                         </p>
         
                         <button class="button is-primary">
@@ -41,7 +41,7 @@
                             Consulta de Ordenes
                         </p>
                         <p class="subtitle">
-                            Descripcion que ahora mismo no recuerdo muy bien pero que debe ser mas o menos larga
+                            Consulta las Ordenes de Produccion ya creadas y visualiza su estado actual de producción
                         </p>
         
                         <button class="button is-primary">
@@ -62,7 +62,7 @@
                             Almacen
                         </p>
                         <p class="subtitle">
-                            Descripcion que ahora mismo no recuerdo muy bien pero que debe ser mas o menos larga
+                            Almacen de Materia Prima y conversiones de bobinas a hojas de papel
                         </p>
         
                         <button class="button is-primary">
@@ -80,7 +80,7 @@
                             Productos Y Maquinaria
                         </p>
                         <p class="subtitle">
-                            Descripcion que ahora mismo no recuerdo muy bien pero que debe ser mas o menos larga
+                            Genera los productos producidos por la empresa y la maquinaria utilizada
                         </p>
         
                         <button class="button is-primary">
@@ -91,11 +91,45 @@
             </div>
         </div>
     </div>
-    <div class="card grande">
-        <div class="card-content">
-            ok
+    <div class="columns">
+        <div class="column">
+            <div class="card" routerLink="/planificacion">
+                <div class="card-image">
+                    <figure class="image5 is-4by3">
+                        <p class="title">
+                            Planificación
+                        </p>
+                        <p class="subtitle">
+                            Visualiza el calendario de planificacion de las diferentes Ordenes de Producción generadas
+                        </p>
+        
+                        <button class="button is-primary">
+                            Visualizar Planificacion
+                        </button>
+                    </figure>
+                </div>
+            </div>
+        </div>
+        <div class="column">
+            <div class="card" routerLink="/ordenes/gestion">
+                <div class="card-image">
+                    <figure class="image6 is-4by3">
+                        <p class="title">
+                            Gestiones
+                        </p>
+                        <p class="subtitle">
+                            Realiza las gestiones correspondientes de acuerdo a tu funcion en la producción
+                        </p>
+        
+                        <button class="button is-primary">
+                            Visualizar Planificacion
+                        </button>
+                    </figure>
+                </div>
+            </div>
         </div>
     </div>
+
 
 
     

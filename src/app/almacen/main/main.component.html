@@ -110,7 +110,11 @@
     <div class="modal-card">
         <div class="modal-card-body">
             <div class="subtitulo">Conversión</div>
-            <hr>
+            
+            <div class="separador">
+                De peso a Hojas
+            </div>
+            <br>
             <div class="field">
                 <div class="label">Peso (tm)</div>
                 <div class="control">
@@ -141,6 +145,42 @@
                     <b>Cantidad Hojas: </b> {{HOJAS}}
                 </div>
             </div>
+
+            <div class="separador">
+                De Hojas a Peso
+            </div>
+            <br>
+            <div class="field">
+                <div class="label">Cantidad (Hojas)</div>
+                <div class="control">
+                    <input type="number" class="input" value='0' (change)='Peso($event)'>
+                </div>
+            </div>
+            <div class="field">
+                <div class="label">Gramaje (g/m²)</div>
+                <div class="control">
+                    <input type="number" class="input" value='300' (change)='Gramaje($event)'>
+                </div>
+            </div>
+            <div class="field">
+                <div class="label">Ancho (cm)</div>
+                <div class="control">
+                    <input type="number" class="input" value='0' (change)='Ancho($event)'>
+                </div>
+            </div>
+            <div class="field">
+                <div class="label">Largo (cm)</div>
+                <div class="control">
+                    <input type="number" class="input" value='0' (change)='Largo($event)'>
+                </div>
+            </div>
+            <hr>
+            <div class="columns">
+                <div class="column">
+                    <b>Cantidad Hojas: </b> {{HOJAS}}
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
