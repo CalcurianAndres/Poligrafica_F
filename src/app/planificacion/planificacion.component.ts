@@ -27,9 +27,18 @@ export class PlanificacionComponent implements OnInit {
 
   // ***********************************************************
   getDaysFromDate(month, year) {
-
+    
     moment.locale('es')
-    const startDate = moment(`${year}/${month}/01`).locale('es')
+    
+    moment.updateLocale('es', {
+      months : [
+          "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
+          "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+      ]
+  });
+
+    
+    const startDate = moment(`${year}/${month}/01`)
     const endDate = startDate.clone().endOf('month')
     this.dateSelect = startDate;
 

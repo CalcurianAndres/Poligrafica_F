@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
@@ -19,6 +19,10 @@ import { OrdenesModule } from './ordenes/ordenes.module';
 import { OrdenesComponent } from './ordenes/ordenes.component';
 import { PlanificacionComponent } from './planificacion/planificacion.component';
 import { LoginComponent } from './login/login.component';
+
+import localeES from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localeES, 'es')
 
 @NgModule({
   declarations: [
@@ -44,7 +48,7 @@ import { LoginComponent } from './login/login.component';
     AlmacenModule,
     OrdenesModule
   ],
-  providers: [],
+  providers: [{provide: LOCALE_ID, useValue: 'es'}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
