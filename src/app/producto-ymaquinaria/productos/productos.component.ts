@@ -23,6 +23,7 @@ export class ProductosComponent implements OnInit {
   public GRUPOS_MATERIA;
 
   public PRODUCTOS;
+  public SUSTRATO = [];
 
   ClienteForm:FormGroup = this.fb.group({
     nombre:['',Validators.required]
@@ -32,6 +33,7 @@ export class ProductosComponent implements OnInit {
               private fb:FormBuilder) { }
 
   ngOnInit(): void {
+    this.sustratos();
     this. obtenerGrupodeMateriales();
     this.obtenerClientes();
     this.obtenerMateriales();
@@ -180,6 +182,22 @@ just_a_sec(e){
     this.api.getById(e.target.value)
       .subscribe((resp:any)=>{
         this.PRODUCTOS = resp.productos;
+      });
+  }
+
+  sustratos(){
+    this.api.getBobina()
+      .subscribe((resp:any)=>{
+        console.log(resp)
+        for(let i=0; i<resp.length; i++){
+          let done = this.SUSTRATO.includes(resp[i].material)
+
+          if(!done){
+            this.SUSTRATO.push(resp[i].material)
+          }
+
+          console.log('.',this.SUSTRATO)
+        }
       });
   }
 

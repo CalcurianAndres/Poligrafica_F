@@ -141,7 +141,23 @@
                 <div class="column">
                 </div>
             </div>
-            
+
+            <div class="separador">
+                Sustratos
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-content">
+                    <div class="field">
+                        <label class="label">Tipo</label>
+                        <div class="select">
+                            <select>
+                                <option value="{{sustrato}}" *ngFor='let sustrato of SUSTRATO'>{{sustrato}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="separador">
                 Materia Prima
             </div>

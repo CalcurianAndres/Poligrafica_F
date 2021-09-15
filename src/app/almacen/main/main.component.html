@@ -2,7 +2,9 @@
     <div class="card-content">
         <div class="titulo">Almacen</div>
         <button class="button is-primary" (click)='Modal_Almacen()'>Agregar inventario</button>  
-        <button class="button is-primary" (click)='modal_Conversion()'>Hacer Conversión</button>
+        <button class="button is-primary" (click)='modal_Conversion()'>Hacer Conversión</button>  
+        <button class="button is-primary" (click)='Modal_bobinas()'>Nueva Bobinas</button>  
+        <button class="button is-primary" (click)='check_bobinas()'>Ver Bobinas</button>
         <hr>
         <div class="card" *ngFor='let seccion of SECCIONES'>
             <div class="card-content">
@@ -105,6 +107,62 @@
     </div>
 </div>
 
+<div class="modal" [ngClass]="{'is-active':CONSULTAB}">
+    <div class="modal-background" (click)='check_bobinas()'></div>
+    <div class="modal-card">
+        <div class="modal-card-body">
+            <div class="subtitulo">Bobinas</div>
+            <div *ngFor='let bobina of BOBINAS_'>
+                <div class="card">
+                    <div class="card-content">
+                        <b># </b> {{bobina.Nbobina}} <br>
+                        <b>Material: </b>{{bobina.material}} <br>
+                        <b>Gramaje: </b>{{bobina.gramaje}} <br>
+                        <b>Ancho de bobina: </b>{{bobina.ancho}} <br>
+                        <b>Peso: </b>{{bobina.peso}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" [ngClass]="{'is-active':BOBINAS}">
+    <div class="modal-background" (click)='Modal_bobinas()'></div>
+    <div class="modal-card">
+        <div class="modal-card-body">
+            <form
+            autocomplete="off"
+            [formGroup]="BobinaForm"
+            (ngSubmit)="nuevaBobina()"
+            >
+            <div class="subtitulo">Nueva Bobina</div>
+            <div class="field">
+                <label class="label">Numero de bobina</label>
+                    <input type="text" class="input" formControlName="Nbobina">
+            </div>
+            <div class="field">
+                <label class="label">Material</label>
+                    <input type="text" class="input" formControlName="material">
+            </div>
+            <div class="field">
+                <label class="label">Gramaje</label>
+                    <input type="text" class="input" formControlName="gramaje" >
+            </div>
+            <div class="field">
+                <label class="label">Ancho de bobina</label>
+                    <input type="text" class="input" formControlName="ancho" >
+            </div>
+            <div class="field">
+                <label class="label">Peso</label>
+                    <input type="text" class="input" formControlName="peso">
+            </div>
+            <button class="button is-primary">Nueva Bobina</button>
+            </form>
+        </div>
+    </div>
+</div>
+
 <div class="modal" [ngClass]="{'is-active':CONVERSION}">
     <div class="modal-background" (click)='modal_Conversion()'></div>
     <div class="modal-card">
@@ -142,7 +200,8 @@
             <hr>
             <div class="columns">
                 <div class="column">
-                    <b>Cantidad Hojas: </b> {{HOJAS}}
+                    <b>Cantidad Hojas: </b> {{HOJAS}} <br> 
+                    <button class="button is-primary">Generar una Conversión</button>
                 </div>
             </div>
 
@@ -153,31 +212,31 @@
             <div class="field">
                 <div class="label">Cantidad (Hojas)</div>
                 <div class="control">
-                    <input type="number" class="input" value='0' (change)='Peso($event)'>
+                    <input type="number" class="input" value='0' (change)='Hojas_($event)'>
                 </div>
             </div>
             <div class="field">
                 <div class="label">Gramaje (g/m²)</div>
                 <div class="control">
-                    <input type="number" class="input" value='300' (change)='Gramaje($event)'>
+                    <input type="number" class="input" value='300' (change)='Gramaje_($event)'>
                 </div>
             </div>
             <div class="field">
                 <div class="label">Ancho (cm)</div>
                 <div class="control">
-                    <input type="number" class="input" value='0' (change)='Ancho($event)'>
+                    <input type="number" class="input" value='0' (change)='Ancho_($event)'>
                 </div>
             </div>
             <div class="field">
                 <div class="label">Largo (cm)</div>
                 <div class="control">
-                    <input type="number" class="input" value='0' (change)='Largo($event)'>
+                    <input type="number" class="input" value='0' (change)='Largo_($event)'>
                 </div>
             </div>
             <hr>
             <div class="columns">
                 <div class="column">
-                    <b>Cantidad Hojas: </b> {{HOJAS}}
+                    <b>Peso: </b> {{PESO_}}
                 </div>
             </div>
 

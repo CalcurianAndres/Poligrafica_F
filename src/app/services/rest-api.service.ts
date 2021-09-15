@@ -156,5 +156,15 @@ export class RestApiService {
     const url = `${this.api_url}/trabajos/acelerar`
     return this.http.post(url,data)
   }
+
+  postNuevaBobina(data){
+    const url = `${this.api_url}/bobina`
+    return this.http.post(url,data)
+  }
+
+  getBobina(){
+    const url = `${this.api_url}/bobina`
+    return this.http.get(url)
+  }
   
 }
