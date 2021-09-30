@@ -6,6 +6,46 @@
         <button class="button is-primary" (click)='Modal_bobinas()'>Nueva Bobinas</button>  
         <button class="button is-primary" (click)='check_bobinas()'>Ver Bobinas</button>
         <hr>
+        <div class="card" *ngIf='boolean_sustrato'>
+            <div class="card-content">
+                <div class="subtitulo">
+                    Sustrato Convertido (Und.)
+                </div>
+                <hr>
+                <table class="table is-fullwidth">
+                    <thead>
+                        <tr>
+                            <th>Materia Prima</th>
+                            <th>Cantidad</th>
+                            <th>Editar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let Sustrato of Sustratos'>
+                            <ng-container>
+                                <td>{{Sustrato.material}}</td>
+                                <td>{{Sustrato.cantidad}}</td>
+                                <td>
+                                    <button class="button is-danger is-outlined is-small">
+                                        <span>Eliminar</span>
+                                        <span class="icon is-small">
+                                          <i class="fas fa-times"></i>
+                                        </span>
+                                    </button>
+   
+                                    <button class="button is-success is-outlined is-small">
+                                        <span>Editar</span>
+                                        <span class="icon is-small">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </span>
+                                    </button>
+                                </td>
+                            </ng-container>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
         <div class="card" *ngFor='let seccion of SECCIONES'>
             <div class="card-content">
                 <div class="subtitulo">
@@ -24,7 +64,7 @@
                             <tr *ngFor='let producto of ALMACEN'>
                                 <ng-container *ngIf='producto.grupo.nombre === seccion.nombre'>
                                     <td>{{producto.nombre}}</td>
-                                    <td>{{producto.cantidad}}</td>
+                                    <td>{{producto.cantidad}} {{producto.unidad}}.</td>
                                     <td>
                                         <button class="button is-danger is-outlined is-small">
                                             <span>Eliminar</span>
@@ -69,6 +109,7 @@
                             <select (change)='Cambio_opciones($event.target.value)' id='selected'>
                                 <option value="{{seccion._id}}" *ngFor='let seccion of SECCIONES'>{{seccion.nombre}}</option>
                                 <option value="otros">otro</option>
+                                <option value="sustrato">Sustrato Convertido</option>
                             </select>
                         </div>
                     </div>
@@ -94,9 +135,20 @@
                     </div>
                     <div class="column is-3">
                         <div class="field">
-                            <label class="label">Cant. Kg</label>
+                            <label class="label">Cant</label>
                             <div class="control">
                                 <input type="number" class="input" formControlName="cantidad">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-3">
+                        <div class="field">
+                            <label class="label">Unidad</label>
+                            <div class="select">
+                                <select formControlName="unidad">
+                                    <option value="Kg">Kg.</option>
+                                    <option value="Und">Und.</option>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -112,17 +164,22 @@
     <div class="modal-card">
         <div class="modal-card-body">
             <div class="subtitulo">Bobinas</div>
-            <div *ngFor='let bobina of BOBINAS_'>
-                <div class="card">
-                    <div class="card-content">
-                        <b># </b> {{bobina.Nbobina}} <br>
-                        <b>Material: </b>{{bobina.material}} <br>
-                        <b>Gramaje: </b>{{bobina.gramaje}} <br>
-                        <b>Ancho de bobina: </b>{{bobina.ancho}} <br>
-                        <b>Peso: </b>{{bobina.peso}}
-                    </div>
-                </div>
-            </div>
+                        <table class="table is-fullwidth">
+                            <tr>
+                                <th>#</th>
+                                <th>Material</th>
+                                <th>Gramaje</th>
+                                <th>Ancho de Bobina</th>
+                                <th>peso</th>
+                            </tr>
+                            <tr *ngFor='let bobina of BOBINAS_'>
+                                <td>{{bobina.Nbobina}}</td>
+                                <td>{{bobina.material}}</td>
+                                <td>{{bobina.gramaje}}</td>
+                                <td>{{bobina.ancho}}</td>
+                                <td>{{bobina.peso}}</td>
+                            </tr>
+                        </table>
         </div>
     </div>
 </div>
@@ -174,34 +231,43 @@
             </div>
             <br>
             <div class="field">
+                <label class="label">Bobinas</label>
+                <div class="select">
+                    <select (change)='Buscar_Bobina($event)' id='bobina_selected'>
+                        <option value="null">Selecciona Bobina</option>
+                        <option value='{{bobina._id}}' *ngFor='let bobina of BOBINAS_'>{{bobina.Nbobina}} - {{bobina.material}} ({{bobina.peso}})</option>
+                    </select>
+                </div>
+            </div>
+            <div class="field">
                 <div class="label">Peso (tm)</div>
                 <div class="control">
-                    <input type="number" class="input" value='0' (change)='Peso($event)'>
+                    <input type="number" class="input" value='0' (change)='Peso($event)' id='_peso'>
                 </div>
             </div>
             <div class="field">
                 <div class="label">Gramaje (g/m²)</div>
                 <div class="control">
-                    <input type="number" class="input" value='300' (change)='Gramaje($event)'>
+                    <input type="number" class="input" value='0' (change)='Gramaje($event.target.value)' id='_gramaje'>
                 </div>
             </div>
             <div class="field">
                 <div class="label">Ancho (cm)</div>
                 <div class="control">
-                    <input type="number" class="input" value='0' (change)='Ancho($event)'>
+                    <input type="number" class="input" value='0' (change)='Ancho($event.target.value)' id='_ancho'>
                 </div>
             </div>
             <div class="field">
                 <div class="label">Largo (cm)</div>
                 <div class="control">
-                    <input type="number" class="input" value='0' (change)='Largo($event)'>
+                    <input type="number" class="input" value='0' (change)='Largo($event)' id='_largo'>
                 </div>
             </div>
             <hr>
             <div class="columns">
                 <div class="column">
                     <b>Cantidad Hojas: </b> {{HOJAS}} <br> 
-                    <button class="button is-primary">Generar una Conversión</button>
+                    <button class="button is-primary" (click)='Generar_Conversion()'>Generar una Conversión</button>
                 </div>
             </div>
 

@@ -166,5 +166,15 @@ export class RestApiService {
     const url = `${this.api_url}/bobina`
     return this.http.get(url)
   }
+
+  postNuevoSustrato(data){
+    const url = `${this.api_url}/sustrato`
+    return this.http.post(url,data)
+  }
+
+  getSustratos(){
+    const url = `${this.api_url}/sustrato`
+    return this.http.get(url)
+  }
   
 }

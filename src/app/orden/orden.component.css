@@ -16,6 +16,19 @@
 }
 .orden{
     border: solid 1px black;
-    width: 160px;
+    width: 250px;
     text-align: center;
+}
+
+.right{
+    align-content: right;
+    text-align: center;
+}
+
+#table_{
+    width: 100%;
+}
+
+#n_orden{
+    font-size: 30px;
 }

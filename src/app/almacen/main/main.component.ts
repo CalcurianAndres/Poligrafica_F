@@ -1,7 +1,11 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RestApiService } from 'src/app/services/rest-api.service';
+import { PdfMakeWrapper, Txt, Img, Table, Cell, Columns } from 'pdfmake-wrapper';
+import * as pdfFonts from "pdfmake/build/vfs_fonts";
+import * as moment from 'moment';
+
+
 
 @Component({
   selector: 'app-main',
@@ -35,9 +39,16 @@ export class MainComponent implements OnInit {
 
   public BOBINAS_;
 
+  public boolean_sustrato:boolean = false;
+  public Sustratos;
+
+  public Mat_Selected;
+  public Num_Bobina
+
   InventarioForm:FormGroup = this.fb.group({
     producto:['', Validators.required],
     cantidad:['', Validators.required],
+    unidad:['',Validators.required],
     NewControl:['']
   });
 
@@ -56,6 +67,7 @@ export class MainComponent implements OnInit {
     this.BuscarAlmacen();
     this.BuscarGruposEnAlmacen();
     this.getbobinas();
+    this.getSustratos();
     this.Gs = (<HTMLInputElement>document.getElementById('selected')).value
   }
 
@@ -129,6 +141,7 @@ export class MainComponent implements OnInit {
     const data = {
       producto: this.InventarioForm.get('producto').value,
       cantidad: this.InventarioForm.get('cantidad').value,
+      unidad: this.InventarioForm.get('unidad').value,
       grupo,
       nuevo:this.OTRO
 
@@ -144,6 +157,7 @@ export class MainComponent implements OnInit {
          this.BuscarAlmacen();
          this.BuscarGruposEnAlmacen();
          this.Modal_Almacen();
+         this.getSustratos();
        })
 
    }
@@ -157,7 +171,7 @@ export class MainComponent implements OnInit {
     // /( this.GRAMAJE*this.ANCHO*this.LARGO)
    }
    Gramaje(e){
-     this.GRAMAJE = e.target.value
+     this.GRAMAJE = e
      this.HOJAS = this.PESO*10000000000
      let otro = this.GRAMAJE*this.ANCHO*this.LARGO
      this.HOJAS = this.HOJAS/otro
@@ -165,7 +179,7 @@ export class MainComponent implements OnInit {
      //  /( this.GRAMAJE*this.ANCHO*this.LARGO)
    }
    Ancho(e){
-     this.ANCHO = e.target.value
+     this.ANCHO = e
      this.HOJAS = this.PESO*10000000000
      let otro = this.GRAMAJE*this.ANCHO*this.LARGO
      this.HOJAS = this.HOJAS/otro
@@ -226,4 +240,198 @@ export class MainComponent implements OnInit {
         console.log(this.BOBINAS_)
       })
   }
+
+  Buscar_Bobina(e){
+    let TheBobina = this.BOBINAS_.find(x => x._id == e.target.value)
+    console.log(TheBobina.gramaje)
+
+    if(TheBobina){
+      (<HTMLInputElement>document.getElementById('_gramaje')).value = TheBobina.gramaje
+      this.Gramaje(TheBobina.gramaje)
+      if(TheBobina){
+      (<HTMLInputElement>document.getElementById('_ancho')).value = TheBobina.ancho
+      this.Ancho(TheBobina.ancho)
+      }
+      if(TheBobina){
+        console.log(TheBobina)
+        this.Mat_Selected = TheBobina.material;
+        this.Num_Bobina = TheBobina.Nbobina;
+      }
+    }
+
+  }
+
+  Generar_Conversion(){
+    let bobina = (<HTMLInputElement>document.getElementById('bobina_selected')).value;
+    let peso = (<HTMLInputElement>document.getElementById('_peso')).value;
+    let gramaje = (<HTMLInputElement>document.getElementById('_gramaje')).value;
+    let ancho = (<HTMLInputElement>document.getElementById('_ancho')).value;
+    let largo = (<HTMLInputElement>document.getElementById('_largo')).value;
+
+    let data = {
+      material:this.Mat_Selected,
+      codigo:this.Num_Bobina,
+      peso,
+      bobina,
+      hojas:this.HOJAS
+    }
+
+    let hoy = moment().format('DD/MM/YYYY')
+
+    this.api.postNuevoSustrato(data)
+      .subscribe((resp:any)=>{
+        this.modal_Conversion();
+        this.getbobinas();
+        this.BuscarAlmacen();
+        this.getSustratos();
+        console.log(resp)
+
+        async function recibo() {
+          const pdf = new PdfMakeWrapper();
+          PdfMakeWrapper.setFonts(pdfFonts);
+          pdf.pageOrientation('landscape');
+
+          pdf.header('Solicitud de Conversión');
+
+          pdf.add(
+
+            new Txt('Solicitud de Conversión').alignment('center').bold().fontSize(25).end,
+            
+          )
+          pdf.add(
+
+            pdf.ln(2)
+            
+          )
+
+
+          pdf.add(
+            new Columns([`Fecha de Solicitud: ${hoy}`, 'Cliente: POLIGRAFICA DE VENEZUELA C.A']).columnGap(10).end
+          )
+
+          pdf.add(
+
+            pdf.ln(2)
+            
+          )
+          pdf.add(
+            new Table([
+              [
+                new Cell( new Txt(`Conv #: ${resp}`).end).border([false, false]).colSpan(5).end,
+                'Conv',
+                'Conv',
+                'Conv',
+                'Conv',
+                new Cell( new Txt('Cantidad a Convertir').end).fontSize(15).colSpan(3).end,
+                '',
+                '',
+                new Cell( new Txt('').end).border([false, false]).end,
+              ],
+              [
+                'Material',
+                'Gramaje',
+                'Ancho Bobina',
+                new Cell( new Txt('Corte').end).colSpan(2).end,
+                'Corte',
+                '# Bobina',
+                'Peso',
+                'Hojas',
+                'Observación'
+              ],
+              [
+                `${data.material}`,
+                `${gramaje}`,
+                `${ancho}`,
+                `${ancho}`,
+                `${largo}`,
+                `${data.codigo}`,
+                `${peso}`,
+                new Cell( new Txt(`${data.hojas}`,).color('red').end).end,
+                ''
+              ],
+              [
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' '
+              ],
+              [
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' '
+              ],
+              [
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' ',
+                ' '
+              ],
+              [
+                new Cell( new Txt('').end).border([false,false]).colSpan(3).end,
+                '',
+                '',
+                new Cell( new Txt('Total').end).colSpan(3).end,
+                '',
+                '',
+                `${peso}`,
+                new Cell( new Txt(`${data.hojas}`,).color('red').end).end,
+                ''
+              ],
+            ]).widths(['10%','10%','10%','10%','10%','10%','10%','10%','20%']).alignment('center').end
+          )
+          pdf.add(
+
+            pdf.ln(2)
+            
+          )
+          pdf.add(
+            new Table([
+              [
+                'Solicitado por:'
+              ],
+              [
+                'Jaime San Juan'
+              ]
+            ]).widths(['25%']).end
+          )
+
+          pdf.create().download()
+
+        }
+
+        recibo();
+
+      })
+  }
+
+  getSustratos(){
+    this.api.getSustratos()
+      .subscribe((resp:any)=>{
+        console.log(resp)
+        if(resp.length>0){
+          this.boolean_sustrato = true;
+          this.Sustratos = resp;
+        }
+      })
+  }
+
+
+
+
 }

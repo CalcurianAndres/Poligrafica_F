@@ -28,7 +28,9 @@ export class MainComponent implements OnInit {
     ejemplares:null,
     materiales: [],
     _id:null,
-    grupo:null
+    grupo:null,
+    sustrato:null,
+    dimensiones:null
   };
   public MAQUINAS
   public ALMACEN
@@ -86,6 +88,7 @@ export class MainComponent implements OnInit {
     this.api.getOneById(e.target.value)
       .subscribe((resp:any)=>{
         this.PRODUCTO = resp.producto;
+        console.log('this',this.PRODUCTO)
         this.Ejemplares_montados = this.PRODUCTO.ejemplares;
         this.Ejemplares(this.Ejemplares_montados)
         this.MAQUINAS = resp.maquinas;
@@ -211,7 +214,8 @@ export class MainComponent implements OnInit {
       producto:this.PRODUCTO._id,
       orden_compra:this.OC,
       cantidad:cantidad.value,
-      paginas:this.paginas
+      paginas:this.paginas,
+      demasia:this.demasia
     }
 
     this.api.postOrden(data)

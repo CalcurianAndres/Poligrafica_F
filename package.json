@@ -21,7 +21,7 @@
     "@angular/router": "~10.1.4",
     "bulma": "^0.9.3",
     "moment": "^2.29.1",
-    "pdfmake": "^0.2.0",
+    "pdfmake": "^0.2.2",
     "pdfmake-wrapper": "^2.1.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",

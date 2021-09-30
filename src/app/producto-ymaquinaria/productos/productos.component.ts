@@ -17,7 +17,7 @@ export class ProductosComponent implements OnInit {
   public GRUPOS;
 
   public EJEMPLARES = 1;
-  public POST;
+  public POST = [];
   public TROQUEL
 
   public GRUPOS_MATERIA;
@@ -26,7 +26,8 @@ export class ProductosComponent implements OnInit {
   public SUSTRATO = [];
 
   ClienteForm:FormGroup = this.fb.group({
-    nombre:['',Validators.required]
+    nombre:['',Validators.required],
+    codigo:['',Validators.required]
   })
 
   constructor(private api:RestApiService,
@@ -43,7 +44,11 @@ export class ProductosComponent implements OnInit {
   }
 
   post_impresion(e){
-    this.POST = e.target.value;
+    console.log(e)
+    let Included = this.POST.includes(e.target.value);
+    if(!Included){
+      this.POST.push(e.target.value);
+    }
   }
 
   troquel(e){
@@ -163,8 +168,11 @@ just_a_sec(e){
       grupo:(<HTMLInputElement>document.getElementById('grupo_producto')).value,
       materiales: this.MATERIALES_NECESARIOS,
       post:this.POST,
-      troquel:this.TROQUEL,
-      ejemplares:this.EJEMPLARES
+      ejemplares:this.EJEMPLARES,
+      sustrato: (<HTMLInputElement>document.getElementById('sustrato')).value,
+      dimensiones: (<HTMLInputElement>document.getElementById('dimensiones')).value,
+      fibra:(<HTMLInputElement>document.getElementById('d_fibra')).value,
+      codigo:(<HTMLInputElement>document.getElementById('cod_producto')).value
     }
 
     
@@ -179,9 +187,10 @@ just_a_sec(e){
   
   buscar_producto(e){
 
-    this.api.getById(e.target.value)
+    this.api.getById(e)
       .subscribe((resp:any)=>{
         this.PRODUCTOS = resp.productos;
+        console.log(this.PRODUCTOS)
       });
   }
 
@@ -199,6 +208,12 @@ just_a_sec(e){
           console.log('.',this.SUSTRATO)
         }
       });
+  }
+
+  borrarPost(post){
+    let i = this.POST.indexOf(post)
+
+    this.POST.splice(i, 1)
   }
 
 

@@ -22,7 +22,9 @@ export class PlanificacionComponent implements OnInit {
     
     this.ObtenerMaquinas()
     this.obtenerTrabajos()
-    this.getDaysFromDate(9,2021)
+    let mes = moment().format('M')
+    let ano = moment().format('yyyy')
+    this.getDaysFromDate(mes,ano)
   }
 
   // ***********************************************************
@@ -113,13 +115,16 @@ export class PlanificacionComponent implements OnInit {
   
   getFechas(fecha:any, funcion:any){
 
-    // 2021-08-01
+    // 2021-08-
+    
+    let mes = moment(this.dateSelect).format('MM')
+    let ano = moment(this.dateSelect).format('yyyy')
 
     if(fecha<10){
       fecha = `0${fecha}`
     }
 
-    fecha = `2021-09-${fecha}`
+    fecha = `${ano}-${mes}-${fecha}`
 
     let betas = [];
 

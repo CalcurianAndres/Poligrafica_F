@@ -6,7 +6,8 @@
                     <label class="label">Cliente:</label>
                     <div class="control">
                         <div class="select">
-                            <select id='cliente_Seleccionado' (change)='buscar_producto($event)' value=''>
+                            <select id='cliente_Seleccionado' (change)='buscar_producto($event.target.value)' value=''>
+                                <option value="">Seleccionar Cliente</option>
                                 <option *ngFor='let cliente of CLIENTES' value='{{cliente._id}}'>{{cliente.nombre}}</option>
                             </select>
                         </div>
@@ -25,13 +26,15 @@
                 <table class="table is-fullwidth">
                     <thead>
                         <tr>
+                            <th>Código de Producto</th>
                             <th>Nombre del Producto</th>
                             <th>Grupo</th>
                             <th>Editar</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor='let producto of PRODUCTOS'>
+                        <tr *ngFor='let producto of PRODUCTOS;let i = index'>
+                            <td>{{producto.cliente.codigo}} - {{producto.codigo}}</td>
                             <td>{{producto.producto}}</td>
                             <td><button class="button is-primary">Borra</button></td>
                         </tr>
@@ -52,12 +55,24 @@
             (ngSubmit)="addCliente()">
                 <div class="subtitulo">Nuevo Cliente</div>
                 <hr>
-                <div class="field">
-                    <label class="label">Nombre del Cliente</label>
-                    <div class="control">
-                        <input type="text" class="input" formControlName='nombre'>
+                <div class="columns">
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Nombre del Cliente</label>
+                            <div class="control">
+                                <input type="text" class="input" formControlName='nombre'>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <div class="column is-3">
+                        <div class="field">
+                            <label class="label">Cód. Cliente</label>
+                            <div class="control">
+                                <input type="text" class="input" formControlName='codigo'>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
                 <button class="button is-primary">Nuevo Cliente</button>
             </form>
         </div>
@@ -94,9 +109,17 @@
                         </div>
                     </div>
                 </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Cod. Producto</label>
+                        <div class="control">
+                            <input type="text" class="input" id='cod_producto'>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="separador">
-                Especificaciones del sustrato
+                Especificaciones
             </div>
             <br>
 
@@ -111,9 +134,17 @@
                 </div>
                 <div class="column">
                     <div class="field">
-                        <label class="label">Dimensiones de la hoja</label>
+                        <label class="label">Dim. de la hoja:</label>
                         <div class="control">
-                            <input type="text" class="input">
+                            <input type="text" class="input" id='dimensiones'>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="field">
+                        <label class="label">Dirección de Fibra:</label>
+                        <div class="control">
+                            <input type="text" class="input" id='d_fibra'>
                         </div>
                     </div>
                 </div>
@@ -132,13 +163,16 @@
                                 <option value="Recto">Corte Recto</option>
                                 <option value="Doblado">Doblado</option>
                                 <option value="Signado">Signado</option>
-                                <option value="Refle">De Fleje</option>
+                                <option value="Fleje">De Fleje</option>
                                 <option value="Molde">De Molde</option>
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="column">
+                    <ul>
+                        <li *ngFor='let post of POST' (click)='borrarPost(post)'>{{post}}</li>
+                    </ul>
                 </div>
             </div>
 
@@ -151,7 +185,7 @@
                     <div class="field">
                         <label class="label">Tipo</label>
                         <div class="select">
-                            <select>
+                            <select id='sustrato'>
                                 <option value="{{sustrato}}" *ngFor='let sustrato of SUSTRATO'>{{sustrato}}</option>
                             </select>
                         </div>
